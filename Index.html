@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticker Haven - Premium Stickers Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .category-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .sticker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .sticker {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sticker:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+
+        .sticker img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .sticker h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cart {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 250px;
+        }
+
+        .cart h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .sticker-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">🦄 Sticker Haven</div>
+            <ul class="nav-links">
+                <li><a href="#animals">Animals</a></li>
+                <li><a href="#food">Food</a></li>
+                <li><a href="#space">Space</a></li>
+                <li><a href="#music">Music</a></li>
+                <li><a href="#cart">🛒 Cart (0)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Sticker Paradise</h1>
+            <p>Discover the ultimate collection of premium stickers for your laptop, phone, and water bottle!</p>
+        </section>
+
+        <div class="categories">
+            <div class="category" onclick="showCategory('animals')">
+                <div class="category-icon">🐾</div>
+                <h3>Animal Kingdom</h3>
+                <p>Cute cats, majestic wolves, and more!</p>
+            </div>
+            <div class="category" onclick="showCategory('food')">
+                <div class="category-icon">🍔</div>
+                <h3>Foodie Stickers</h3>
+                <p>Delicious treats and tasty delights!</p>
+            </div>
+            <div class="category" onclick="showCategory('space')">
+                <div class="category-icon">🚀</div>
+                <h3>Space Adventure</h3>
+                <p>Galactic explorers and cosmic wonders!</p>
+            </div>
+            <div class="category" onclick="showCategory('music')">
+                <div class="category-icon">🎸</div>
+                <h3>Music Vibes</h3>
+                <p>Rock out with musical masterpieces!</p>
+            </div>
+        </div>
+
+        <section id="sticker-section">
+            <div class="sticker-grid" id="sticker-grid">
+                <!-- Stickers will be populated by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <div class="cart" id="cart" style="display: none;">
+        <h3>🛒 Shopping Cart</h3>
+        <div id="cart-items"></div>
+        <div class="total" id="cart-total">$0.00</div>
+        <button class="add-to-cart" onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        const stickers = {
+            animals: [
+                { name: "Cute Cat", price: 2.99, img: "🐱", id: 1 },
+                { name: "Majestic Wolf", price: 3.49, img: "🐺", id: 2 },
+                { name: "Happy Panda", price: 2.79, img: "🐼", id: 3 },
+                { name: "Fox Friend", price: 2.99, img: "🦊", id: 4 },
+                { name: "Owl Wisdom", price: 3.29, img: "🦉", id: 5 },
+                { name: "Dino Power", price: 3.99, img: "🦕", id: 6 }
+            ],
+            food: [
+                { name: "Pizza Party", price: 2.49, img: "🍕", id: 7 },
+                { name: "Ice Cream Dream", price: 2.29, img: "🍦", id: 8 },
+                { name: "Burger King", price: 2.79, img: "🍔", id: 9 },
+                { name: "Taco Tuesday", price: 2.99, img: "🌮", id: 10 },
+                { name: "Donut Delight", price: 2.19, img: "🍩", id: 11 },
+                { name: "Sushi Roll", price: 3.49, img: "🍣", id: 12 }
+            ],
+            space: [
+                { name: "Rocket Launch", price: 3.99, img: "🚀", id: 13 },
+                { name: "Alien Friend", price: 2.99, img: "👽", id: 14 },
+                { name: "Planet Earth", price: 3.29, img: "🌍", id: 15 },
+                { name: "Saturn Rings", price: 3.79, img: "🪐", id: 16 },
+                { name: "Starship", price: 4.49, img: "⭐", id: 17 },
+                { name: "Galaxy", price: 3.99, img: "🌌", id: 18 }
+            ],
+            music: [
+                { name: "Electric Guitar", price: 3.49, img: "🎸", id: 19 },
+                { name: "Vinyl Record", price: 2.99, img: "💿", id: 20 },
+                { name: "Headphones", price: 3.29, img: "🎧", id: 21 },
+                { name: "Microphone", price: 2.79, img: "🎤", id: 22 },
+                { name: "Drum Set", price: 3.99, img: "🥁", id: 23 },
+                { name: "Music Notes", price: 2.49, img: "🎵", id: 24 }
+            ]
+        };
+
+        let currentCategory = 'animals';
+        let cart = [];
+
+        function showCategory(category) {
+            currentCategory = category;
+            const grid = document.getElementById('sticker-grid');
+            grid.innerHTML = '';
+            
+            stickers[category].forEach(sticker => {
+                const stickerEl = document.createElement('div');
+                stickerEl.className = 'sticker';
+                stickerEl.innerHTML = `
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">${sticker.img}</div>
+                    <h4>${sticker.name}</h4>
+                    <div class="price">$${sticker.price.toFixed(2)}</div>
+                    <button class="add-to-cart" onclick="addToCart(${sticker.id})">Add to Cart</button>
+                `;
+                grid.appendChild(stickerEl);
+            });
+        }
+
+        function addToCart(id) {
+            const sticker = Object.values(stickers)
+                .flat()
+                .find(s => s.id === id);
+            
+            const cartItem = cart.find(item => item.id === id);
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...sticker, quantity: 1 });
+            }
+            
+            updateCart();
+            alert(`${sticker.name} added to cart! 🎉`);
+        }
+
+        function updateCart() {
+            const cartEl = document.getElementById('cart');
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            const cartLink = document.querySelector('.nav-links a[href="#cart"]');
+            
+            if (cart.length > 0) {
+                cartEl.style.display = 'block';
+                cartItemsEl.innerHTML = cart.map(item => 
+                    `<div class="cart-item">
+                        <span>${item.name} x${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>`
+                ).join('');
+                
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartTotalEl.textContent = `Total: $${total.toFixed(2)}`;
+                cartLink.textContent = `🛒 Cart (${cart.reduce((sum, item) => sum + item.quantity, 0)})`;
+            } else {
+                cartEl.style.display = 'none';
+                cartLink.textContent = '🛒 Cart (0)';
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty! 😅');
+                return;
+            }
+            alert('Thank you for your purchase! 🚀\nStickers will be shipped to your imagination!');
+            cart = [];
+            updateCart();
+        }
+
+        // Initialize
+        showCategory('animals');
+        updateCart();
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                if (target === '#cart') {
+                    const cartEl = document.getElementById('cart');
+                    cartEl.style.display = cartEl.style.display === 'none' ? 'block' : 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
